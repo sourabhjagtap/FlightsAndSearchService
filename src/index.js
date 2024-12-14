@@ -17,7 +17,7 @@ const setupAndStartServer = async() => {
     app.use(bodyParser.urlencoded({extended: true}));
 
     //so in any api request if we found /api then map it to ApiRoutes
-    app.use('/api',ApiRoutes);
+    app.use('/api',ApiRoutes);//ApiRoutes is the index file inside the routes folder
 
     app.listen(PORT, async ()=>{
         console.log(`Server started at ${PORT}` )
