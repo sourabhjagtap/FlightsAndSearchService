@@ -136,18 +136,31 @@ const destroy = async (req, res) => {
 // };
 
 
-
+// GET request  (URL -> /city/:id)
 const get = async (req, res) => {
     try {
-        const cityId = parseInt(req.params.id); // Ensure the ID is an integer
-        if (isNaN(cityId)) {
+
+        const cityId = parseInt(req.params.id, 10); // Convert to integer
+        if (isNaN(cityId) || cityId <= 0) { // Validate the ID
             return res.status(400).json({
                 data: {},
                 success: false,
-                message: 'Invalid city ID',
+                message: 'Invalid city ID provided',
                 error: {}
             });
         }
+
+        // const cityId = parseInt(req.params.id); // Ensure the ID is an integer
+        // if (isNaN(cityId)) {
+        //     return res.status(400).json({
+        //         data: {},
+        //         success: false,
+        //         message: 'Invalid city ID',
+        //         error: {}
+        //     });
+        // }
+
+        
 
         const city = await cityService.getCity(cityId);
         if (!city) {
@@ -176,14 +189,27 @@ const get = async (req, res) => {
     }
 };
 
+
+
+//PATCH   (URL -> /city/:id [id will represent whivh city want to update] , request body will hold the data want to update ) 
 const update = async (req, res) => {
     try {
-        const cityId = parseInt(req.params.id); // Ensure the ID is an integer
-        if (isNaN(cityId)) {
+        // const cityId = parseInt(req.params.id); // Ensure the ID is an integer
+        // if (isNaN(cityId)) {
+        //     return res.status(400).json({
+        //         data: {},
+        //         success: false,
+        //         message: 'Invalid city ID',
+        //         error: {}
+        //     });
+        // }
+
+        const cityId = parseInt(req.params.id, 10); // Convert to integer
+        if (isNaN(cityId) || cityId <= 0) { // Validate the ID
             return res.status(400).json({
                 data: {},
                 success: false,
-                message: 'Invalid city ID',
+                message: 'Invalid city ID provided',
                 error: {}
             });
         }
@@ -216,9 +242,31 @@ const update = async (req, res) => {
 };
 
 
+//GET  (URL -> /city)
+const getAll = async (req,res)=>{
+    try{
+        const cities = await cityService.getAllCities();
+        return res.status(200).json({
+            data: cities,
+            success: true,
+            message: 'Successfully fetched the city',
+            error: {}
+        });
+    }catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            data: {},
+            success: false,
+            message: 'Not able to fetch the cities',
+            error: error
+        });
+    }
+}
+
 module.exports = {
     create,
     destroy,
     get,
-    update
+    update,
+    getAll
 };

@@ -45,7 +45,7 @@ class CityRepository{
             return result > 0;
         } catch (error) {
             console.log("Something went wrong in the repository layer:", error);
-            throw error;
+            throw {error};
         }
     }
 
@@ -79,30 +79,29 @@ class CityRepository{
 
     async getCity(cityId) {
         try {
+
+            if (!cityId || isNaN(cityId)) {
+                throw new Error('Invalid city ID provided');
+            }
+
             const city = await City.findOne({
-                where: { id: cityId }
+                where: {
+                    id: cityId
+                }
             });
             return city;
         } catch (error) {
             console.log('Something went wrong in the repository layer');
-            throw error;
+            throw {error};
         }
     }
 
     async updateCity(cityId, data) {
         try {
-            // const response = await City.update(data, {
-            //     where: { id: cityId },
-            //     returning: true
-            // });
 
-            // const [rowsUpdated, updatedCities] = response;
-
-            // if (rowsUpdated === 0) {
-            //     return null;
-            // }
-
-            // return updatedCities[0];
+            if (!cityId || isNaN(cityId)) {
+                throw new Error('Invalid city ID provided');
+            }
 
             //for getting updated data in my sql we use below approach
             const city = await City.findByPk(cityId);
@@ -111,10 +110,19 @@ class CityRepository{
             return city;
         } catch (error) {
             console.log('Something went wrong in the repository layer');
-            throw error;
+            throw {error};
         }
     }
 
+    async getAllCities(){
+        try{
+            const cities = await City.findAll();
+            return cities;
+        }catch (error) {
+            console.log('Something went wrong in the repository layer');
+            throw {error};
+        }
+    }
 
 }
 

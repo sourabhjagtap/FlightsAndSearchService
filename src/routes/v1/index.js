@@ -1,12 +1,22 @@
 const express = require('express');
-const CityController = require('../../controllers/city-controller');
-
+const cityController = require('../../controllers/city-controller');
 
 const router = express.Router();
 
-router.post('/city' , CityController.create); // API -> /v1/city
-router.delete('/city/:id',CityController.destroy);
-//here 'city/:id' is written bcz our city-controller.js contain 'req.params.id' in which "id" is wirtten in destroy so both must be same i.e id == id do not change the name
-router.get('city/:id' , CityController.get);//need to write the function
-router.patch('city/:id',CityController.update);//need to write the function
+// Route for creating a city
+router.post('/city', cityController.create);
+
+// Route for deleting a city by ID
+router.delete('/city/:id', cityController.destroy);
+
+// Route for fetching a city by ID
+router.get('/city/:id', cityController.get);
+
+// Route for updating a city by ID
+router.patch('/city/:id', cityController.update);
+
+// Route for fetching all cities
+router.get('/city', cityController.getAll);
+
 module.exports = router;
+

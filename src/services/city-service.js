@@ -11,7 +11,7 @@ class CityServices {
             return city;
         } catch (error) {
             console.log("Something went wrong at service layer");
-            throw error;
+            throw {error};
         }
     }
 
@@ -40,7 +40,7 @@ class CityServices {
             return response;
         } catch (error) {
             console.log("Something went wrong at service layer");
-            throw error;
+            throw {error};
         }
     }
     
@@ -68,24 +68,47 @@ class CityServices {
 
     async getCity(cityId) {
         try {
+            
+            if (!cityId || isNaN(cityId)) {
+                throw new Error("Invalid city ID");
+            }
+
             const city = await this.cityRepository.getCity(cityId);
             return city;
         } catch (error) {
             console.log('Something went wrong at service layer');
-            throw error;
+            throw {error};
         }
     }
 
     async updateCity(cityId, data) {
         try {
+
+            if (!cityId || isNaN(cityId)) {
+                throw new Error("Invalid city ID");
+            }
+
             const city = await this.cityRepository.updateCity(cityId, data);
             return city;
         } catch (error) {
             console.log('Something went wrong at service layer');
-            throw error;
+            throw {error};
+        }
+    }
+
+    async getAllCities(){
+        try{
+            const cities = await this.cityRepository.getAllCities();
+            return cities;
+        }catch (error) {
+            console.log('Something went wrong at service layer');
+            throw {error};
         }
     }
 
 }
+
+
+
 
 module.exports = CityServices;
