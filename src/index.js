@@ -9,6 +9,7 @@ const ApiRoutes = require('./routes/index')
 const db = require('./models/index');
 //const sequelize = require('sequelize');
 const {City, Airport} = require('./models/index');
+const {Airplane} = require('./models/index');
 const { where } = require("sequelize");
 
 
@@ -32,11 +33,15 @@ const setupAndStartServer = async() => {
             where:{
                 id:52
             }
-        });
+        }); 
         const airports = await city.getAirports();//find all the airports in city with id = 52 by its name (it will perform join operation)
         console.log(city, airports);
         // console.log(city);
         
+        //inserting data into airplane table directly
+        // await Airplane.create({
+        //     modelNumber : 'Bombardier CRJ'
+        // });
 
     });
 }
