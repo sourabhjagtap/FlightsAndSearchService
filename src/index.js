@@ -29,13 +29,15 @@ const setupAndStartServer = async() => {
             db.sequelize.sync({alter : true});
         }
         //db.sequelize.sync({alter : true});//sync once only hence comment
-        const city = await City.findOne({//find city with id = 52
-            where:{
-                id:52
-            }
-        }); 
-        const airports = await city.getAirports();//find all the airports in city with id = 52 by its name (it will perform join operation)
-        console.log(city, airports);
+        //=============================================
+        // const city = await City.findOne({//find city with id = 52
+        //     where:{
+        //         id:52
+        //     }
+        // }); 
+        // const airports = await city.getAirports();//find all the airports in city with id = 52 by its name (it will perform join operation)
+        // console.log(city, airports);
+        //==========================================
         // console.log(city);
         
         //inserting data into airplane table directly
