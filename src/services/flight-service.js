@@ -46,6 +46,7 @@ module.exports = FlightService;
  *      airplaneId,
  *      departureAirportId,
  *      arrivalAirportId,
+ *      arrivalTime,
  *      departureTime,
  *      price,
  *      totalSeats -> fetch from airplane(means we need aorplane repository)
